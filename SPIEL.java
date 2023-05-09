@@ -1,9 +1,11 @@
 public class SPIEL {
     
     private FENSTER fenster;
+    private MAUSLISTENER mauslistener;
     
     public SPIEL(){
-        fenster = new FENSTER();
+        mauslistener = new MAUSLISTENER();
+        fenster = new FENSTER(mauslistener);
         
     }
 
