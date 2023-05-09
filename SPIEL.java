@@ -1,5 +1,6 @@
-public class SPIEL {
-    
+
+public class SPIEL{
+
     private FENSTER fenster;
     private MAUSLISTENER mauslistener;
     
@@ -7,6 +8,9 @@ public class SPIEL {
         mauslistener = new MAUSLISTENER();
         fenster = new FENSTER(mauslistener);
         
+        while(true)
+        {
+            mauslistener.PunktGeben();
+        }
     }
-
 }
