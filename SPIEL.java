@@ -1,7 +1,10 @@
 public class SPIEL {
-
+    
+    private FENSTER fenster;
+    
     public SPIEL(){
-        System.out.println("SPIEL");
+        fenster = new FENSTER();
+        
     }
 
 }
