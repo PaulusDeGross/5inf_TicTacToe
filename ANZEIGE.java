@@ -25,7 +25,7 @@ public class ANZEIGE
 
     public void Anzeigen( int x, int y )
     {
-        Zeichnen( XInPixel( x ), YInPixel( y ), 25, 25 );
+        Zeichnen( /* XInPixel( x ), YInPixel( y ), 25, 25 */ );
     }
 
     public void Loeschen( int x, int y )
@@ -34,7 +34,7 @@ public class ANZEIGE
         leinwand.fillRect( XInPixel( x ), YInPixel( y ), 25, 25 );
     }
 
-    private void Zeichnen( int x, int y, int b, int h )
+    private void Zeichnen( /* int x, int y, int b, int h */)
     {
         //FelderZeichnen
     }
