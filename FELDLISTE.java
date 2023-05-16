@@ -21,8 +21,9 @@ public class FELDLISTE {
             // schauen ob trefferkoordinaten bei x und y größer sind als eckpunkt und bei x und y kleiner als eckpunkt x + feldgroesse & y + feldgroesse
             while(i < KONST.spielfeldgroesse)
             {
-                felder[i] = new FELD (KONST.eckpunkteFelder[i][j][0], KONST.eckpunkteFelder[i][j][1], KONST.spiel.AnzeigeGeben());
-                felder[i].Anzeigen();
+                int nr = i + j * 3;
+                felder[nr] = new FELD (KONST.eckpunkteFelder[i][j][0], KONST.eckpunkteFelder[i][j][1], KONST.spiel.AnzeigeGeben());
+                felder[nr].Anzeigen();
                 i++;
             }
             j++;
