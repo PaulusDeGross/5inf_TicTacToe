@@ -5,23 +5,28 @@ public class SPIEL{
     private MAUSLISTENER mauslistener;
     private SYMBOLE spieler;
     private FELDLISTE feldliste;
+    private ANZEIGE anzeige;
     
-    public SPIEL(){
+    public SPIEL(){}
+
+    public void SpielStarten()
+    {
         mauslistener = new MAUSLISTENER();
         spieler = SYMBOLE.O;
         feldliste = new FELDLISTE();
-    }
-    
-    public void SpielStarten()
-    {
         fenster = new FENSTER(mauslistener);
+        anzeige = new ANZEIGE(fenster.LeinwandGeben());
     }
-    
+
     public void Klick(int x, int y)
     {
         int feld = feldliste.Suchen(x, y);
-        System.out.println("Feld: " + feld);
-        System.out.println("Spieler: " + spieler);
+        System.out.println("Feld: " + feld + "| Spieler: " + spieler);
+        SpielerWechseln();
+    }
+
+    private void SpielerWechseln()
+    {
         if (spieler == SYMBOLE.O)
         {
             spieler = SYMBOLE.X;
@@ -29,4 +34,19 @@ public class SPIEL{
             spieler = SYMBOLE.O;
         }
     }
+
+    private void FeldSetzen(int feld_x, int feld_y)
+    {
+    }
+
+    private void SpielEvaluieren()
+    {
+        
+    }
+    
+    public ANZEIGE AnzeigeGeben()
+    {
+        return anzeige;
+    }
+    
 }
