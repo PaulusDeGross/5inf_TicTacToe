@@ -7,7 +7,9 @@ public class SPIEL{
     private FELDLISTE feldliste;
     private ANZEIGE anzeige;
     
-    public SPIEL(){}
+    public SPIEL()
+    {
+    }
 
     public void SpielStarten()
     {
