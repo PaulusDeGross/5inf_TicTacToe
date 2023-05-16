@@ -25,6 +25,6 @@ public class FELD {
 
     public boolean IstGetroffen( int x_vgl, int y_vgl )
     {
-        return x == x_vgl && y == y_vgl;
+        return x < x_vgl && y < y_vgl && x + KONST.feldgroesse > x_vgl && y + KONST.feldgroesse > y_vgl;
     }
 }
