@@ -1,6 +1,6 @@
 public class FELDLISTE {
 
-     private FELD[] felder;
+    private FELD[] felder;
     private int anzahl;
 
     // Konstruktor
@@ -11,14 +11,23 @@ public class FELDLISTE {
     }
 
     // Methoden
-    public void Hinzufuegen( FELD f )
+    public FELD[] Initialisieren()
     {
-        if( anzahl < felder.length )
+        int i = 0;
+        int j = 0;
+        
+        while(j < KONST.spielfeldgroesse)
         {
-            felder[ anzahl ] = f;
-            f.Anzeigen();
-            anzahl = anzahl + 1;
+            // schauen ob trefferkoordinaten bei x und y größer sind als eckpunkt und bei x und y kleiner als eckpunkt x + feldgroesse & y + feldgroesse
+            while(i < KONST.spielfeldgroesse)
+            {
+                felder[i] = new FELD (KONST.eckpunkteFelder[i][j][0], KONST.eckpunkteFelder[i][j][1], KONST.spiel.AnzeigeGeben());
+                felder[i].Anzeigen();
+                i++;
+            }
+            j++;
         }
+        return felder;
     }
 
     public void Entfernen( int nr )
