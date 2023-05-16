@@ -7,11 +7,11 @@ public class FELDLISTE {
     public FELDLISTE ()
     {
         felder = new FELD[KONST.spielfeldgroesse * KONST.spielfeldgroesse];
-        anzahl = 0;
+        Initialisieren();
     }
 
     // Methoden
-    public FELD[] Initialisieren()
+    public void Initialisieren()
     {
         int i = 0;
         int j = 0;
@@ -27,29 +27,12 @@ public class FELDLISTE {
             }
             j++;
         }
-        return felder;
-    }
-
-    public void Entfernen( int nr )
-    {
-        if( nr >= 0 && nr < anzahl )
-        {
-            felder[ nr ].Entfernen();
-            anzahl = anzahl - 1;
-            int i = nr;
-            while( i < anzahl )
-            {
-                felder[ i ] = felder[ i + 1 ];
-                i = i + 1;
-            }
-            felder[ anzahl ] = null;
-        }
     }
 
     public int Suchen( int x, int y )
     {
         int i = 0;
-        while( i < anzahl )
+        while( i < KONST.spielfeldgroesse * KONST.spielfeldgroesse)
         {
             if( felder[ i ].IstGetroffen( x, y ) )
             {
@@ -64,20 +47,4 @@ public class FELDLISTE {
     {
         return Suchen( x, y ) > -1;
     }
-
-    public void LetztenEntfernen()
-    {
-        Entfernen( 0 );
-    }
-
-    public void Entfernen( int x, int y )
-    {
-        Entfernen( Suchen( x, y ) );
-    }
-
-    public int AnzahlGeben()
-    {
-        return anzahl;
-    }
-
 }
