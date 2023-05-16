@@ -15,10 +15,11 @@ public class KONST {
     public static final boolean sichtbar = true;
     public static final Color hintergrundfarbe = Color.WHITE;
     public static final int spielfeldgroesse = 3;
-    public static final int feldgroesse = 25;
     public static final int startX = 10;
     public static final int startY = 10;
+    public static final int feldgroesse = fensterbreite / (spielfeldgroesse - 2 * startX);
     public static final int[][][]eckpunkteFelder = eckpunkteFelderGeben(startX, startY);
+    public static final SPIEL spiel = new SPIEL();
     
     private static int[][][] eckpunkteFelderGeben(int x, int y)
     {

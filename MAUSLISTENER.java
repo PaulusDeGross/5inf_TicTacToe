@@ -15,10 +15,7 @@ public class MAUSLISTENER implements MouseListener{
     {
         int maus_x = klick.getX();
         int maus_y = klick.getY();
-        
-        PunktSetzen(maus_x, maus_y);
-        
-        System.out.println("Maus X: " + maus_x + " | Maus Y: " + maus_y);
+        KONST.spiel.Klick(maus_x, maus_y);
     }
 
     @Override
