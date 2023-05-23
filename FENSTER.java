@@ -2,8 +2,10 @@ import javax.swing.JFrame;
 import java.awt.Graphics;
 import java.awt.Color;
 import java.awt.Image;
+import java.awt.event.WindowListener;
+import java.awt.event.WindowEvent;
 
-public class FENSTER extends JFrame
+public class FENSTER extends JFrame implements WindowListener
 {
     // Attribute
     private Image puffer;
@@ -56,4 +58,46 @@ public class FENSTER extends JFrame
         }
     }
     //*/
+    // WindowListener
+    @Override
+    public void windowDeactivated( WindowEvent event )
+    {
+        //nichts tun
+    }
+
+    @Override
+    public void windowActivated( WindowEvent event )
+    {
+        //nichts tun
+    }
+
+    @Override
+    public void windowDeiconified( WindowEvent event )
+    {
+       //nichts tun
+    }
+
+    @Override
+    public void windowIconified( WindowEvent event )
+    {
+        //nichts tun
+    }
+
+    @Override
+    public void windowClosed( WindowEvent event )
+    {
+        // Nichts tun
+    }
+
+    @Override
+    public void windowClosing( WindowEvent event )
+    {
+        System.exit(0);
+    }
+
+    @Override
+    public void windowOpened( WindowEvent event )
+    {
+        // Nichts tun
+    }
 }

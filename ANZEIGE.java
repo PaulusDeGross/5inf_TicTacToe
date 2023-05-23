@@ -2,9 +2,9 @@
 import java.awt.Graphics;
 import java.awt.Color;
 
-public class ANZEIGE 
+public abstract class ANZEIGE 
 {
-     protected Graphics leinwand;
+    protected Graphics leinwand;
 
     // Konstruktor
     public ANZEIGE ( Graphics leinwand )
@@ -15,27 +15,24 @@ public class ANZEIGE
     // Methoden
     private int XInPixel( int x )
     {
-        return 15 + 25 * x;
+        return KONST.feldgroesse * x;
     }
 
     private int YInPixel( int y )
     {
-        return 65 + 25 * y;
+        return KONST.feldgroesse * y;
     }
 
     public void Anzeigen( int x, int y )
     {
-        Zeichnen( /* XInPixel( x ), YInPixel( y ), 25, 25 */ );
+        Zeichnen( x , y, KONST.feldgroesse, KONST.feldgroesse );
     }
 
     public void Loeschen( int x, int y )
     {
         leinwand.setColor( Color.WHITE );
-        leinwand.fillRect( XInPixel( x ), YInPixel( y ), 25, 25 );
+        leinwand.fillRect( XInPixel( x ), YInPixel( y ), KONST.feldgroesse, KONST.feldgroesse );
     }
 
-    private void Zeichnen( /* int x, int y, int b, int h */)
-    {
-        //FelderZeichnen
-    }
+    protected abstract void Zeichnen( int x, int y, int b, int h);
 }

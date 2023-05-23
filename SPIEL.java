@@ -5,7 +5,9 @@ public class SPIEL{
     private MAUSLISTENER mauslistener;
     private SYMBOLE spieler;
     private FELDLISTE feldliste;
-    private ANZEIGE anzeige;
+    private FELDANZEIGE feldanzeige;
+    private KREISANZEIGE kreisanzeige;
+    private KREUZANZEIGE kreuzanzeige;
     
     public SPIEL()
     {
@@ -15,16 +17,21 @@ public class SPIEL{
     {
         mauslistener = new MAUSLISTENER();
         spieler = SYMBOLE.O;
-        feldliste = new FELDLISTE();
         fenster = new FENSTER(mauslistener);
-        anzeige = new ANZEIGE(fenster.LeinwandGeben());
+        feldanzeige = new FELDANZEIGE(fenster.LeinwandGeben());
+        kreisanzeige = new KREISANZEIGE(fenster.LeinwandGeben());
+        kreuzanzeige = new KREUZANZEIGE(fenster.LeinwandGeben());
+        feldliste = new FELDLISTE();
+        fenster.repaint();
     }
 
     public void Klick(int x, int y)
     {
         int feld = feldliste.Suchen(x, y);
         System.out.println("Feld: " + feld + "| Spieler: " + spieler);
+        FeldSetzen(feld);
         SpielerWechseln();
+        fenster.repaint();
     }
 
     private void SpielerWechseln()
@@ -37,8 +44,20 @@ public class SPIEL{
         }
     }
 
-    private void FeldSetzen(int feld_x, int feld_y)
+    private void FeldSetzen(int nr)
     {
+        if(feldliste.SymbolGeben(nr) == SYMBOLE.LEER && spieler == SYMBOLE.X)
+        {
+            feldliste.XSetzen(nr);
+        }
+        else if(feldliste.SymbolGeben(nr) == SYMBOLE.LEER && spieler == SYMBOLE.X)
+        {
+             feldliste.OSetzen(nr);
+        }
+        else
+        {
+            System.out.println("Feld ist besetzt");
+        }
     }
 
     private void SpielEvaluieren()
@@ -46,9 +65,9 @@ public class SPIEL{
         
     }
     
-    public ANZEIGE AnzeigeGeben()
+    public FELDANZEIGE FeldanzeigeGeben()
     {
-        return anzeige;
+        return feldanzeige;
     }
     
 }

@@ -15,6 +15,7 @@ public class MAUSLISTENER implements MouseListener{
     {
         int maus_x = klick.getX();
         int maus_y = klick.getY();
+        System.out.println(maus_x +", " + maus_y);
         KONST.spiel.Klick(maus_x, maus_y);
     }
 

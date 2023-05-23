@@ -1,7 +1,6 @@
 public class FELDLISTE {
 
     private FELD[] felder;
-    private int anzahl;
 
     // Konstruktor
     public FELDLISTE ()
@@ -13,20 +12,20 @@ public class FELDLISTE {
     // Methoden
     public void Initialisieren()
     {
-        int i = 0;
-        int j = 0;
-        
-        while(j < KONST.spielfeldgroesse)
+        int k = 0;        
+        while(k < KONST.spielfeldgroesse)
         {
+            int i = 0;
             // schauen ob trefferkoordinaten bei x und y größer sind als eckpunkt und bei x und y kleiner als eckpunkt x + feldgroesse & y + feldgroesse
             while(i < KONST.spielfeldgroesse)
             {
-                int nr = i + j * 3;
-                felder[nr] = new FELD (KONST.eckpunkteFelder[i][j][0], KONST.eckpunkteFelder[i][j][1], KONST.spiel.AnzeigeGeben());
+                int nr = i + k * 3;
+                felder[nr] = new FELD (KONST.eckpunkteFelder[i][k][0], KONST.eckpunkteFelder[i][k][1], KONST.spiel.FeldanzeigeGeben());
+                System.out.println("Feld: " + nr + "\n" + "Koordinaten: " + KONST.eckpunkteFelder[i][k][0] + ", " + KONST.eckpunkteFelder[i][k][1]);
                 felder[nr].Anzeigen();
                 i++;
             }
-            j++;
+            k++;
         }
     }
 
@@ -41,11 +40,37 @@ public class FELDLISTE {
             }
             i = i + 1;
         }
+        System.out.println("Feld nicht gefunden");
         return -1;
     }
-
-    public boolean IstGetroffen( int x, int y )
+    
+    public int XGeben (int _nr)
     {
-        return Suchen( x, y ) > -1;
+        return felder[_nr].XGeben();
+    }
+    
+    public int YGeben (int _nr)
+    {
+        return felder[_nr].YGeben();
+    }
+    
+    public void Anzeigen(int _nr)
+    {
+        felder[_nr].Anzeigen();
+    }
+    
+    public SYMBOLE SymbolGeben(int _nr)
+    {
+        return felder[_nr].SymbolGeben();
+    }
+    
+    public void XSetzen(int _nr)
+    {
+        felder[_nr].XSetzen();
+    }
+    
+    public void OSetzen( int _nr)
+    {
+        felder[_nr].OSetzen();
     }
 }
