@@ -20,11 +20,12 @@ public class KONST {
     public static final int feldgroesse = (fensterhoehe - 100) / spielfeldgroesse;
     public static final int[][][]eckpunkteFelder = eckpunkteFelderGeben(startX, startY);
     public static final SPIEL spiel = new SPIEL();
+    public static final int offset = 100;
     
     private static int[][][] eckpunkteFelderGeben(int x, int y)
     {
         int eckpunkteFelder[][][] = new int[spielfeldgroesse][spielfeldgroesse][2];
-        int _y = 0;
+        int _y = offset;
         while(_y < spielfeldgroesse)
         {
             int _x = 0;
