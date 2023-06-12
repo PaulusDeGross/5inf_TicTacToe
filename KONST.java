@@ -10,14 +10,14 @@ public class KONST {
 
     public static final String titel = "TIC TAC TOE";
     public static final int fensterbreite = 600;
-    public static final int fensterhoehe = 600;
+    public static final int fensterhoehe = 700;
     public static final boolean groesseveränderbar = false;
     public static final boolean sichtbar = true;
     public static final Color hintergrundfarbe = Color.WHITE;
     public static final int spielfeldgroesse = 3;
     public static final int startX = 1;
     public static final int startY = 1;
-    public static final int feldgroesse = fensterbreite / spielfeldgroesse;
+    public static final int feldgroesse = (fensterhoehe - 100) / spielfeldgroesse;
     public static final int[][][]eckpunkteFelder = eckpunkteFelderGeben(startX, startY);
     public static final SPIEL spiel = new SPIEL();
     
