@@ -18,7 +18,7 @@ public class KREUZANZEIGE extends ANZEIGE
     public void Zeichnen(int x, int y, int b, int h)
     {
         leinwand.setColor( Color.BLACK );
-        leinwand.drawLine( x, y, x + b, y - h);
-        leinwand.drawLine( x + b, y, b, y - h);
+        leinwand.drawLine( x, y, x + b, y + h);
+        leinwand.drawLine( x + b, y, x, y + h);
     }
 }
