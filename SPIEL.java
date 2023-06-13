@@ -68,7 +68,7 @@ public class SPIEL{
         if(feldliste.SymbolGeben(nr) == SYMBOLE.LEER && spieler == SYMBOLE.X)
         {
             feldliste.XSetzen(nr);
-            kreuzanzeige.Zeichnen(feldliste.XGeben(nr) + KONST.feld_x_offset, feldliste.YGeben(nr) + KONST.feld_y_offset, KONST.feldgroesse, KONST.feldgroesse);
+            kreuzanzeige.Zeichnen(feldliste.XGeben(nr), feldliste.YGeben(nr), KONST.feldgroesse, KONST.feldgroesse);
             platziert_zaehler++;
             fenster.repaint();
             SpielerWechseln();
@@ -123,7 +123,7 @@ public class SPIEL{
 
     private void Unentschieden()
     {
-        String[] options = new String[] {"Neustarten", "Schlieﬂen"};
+        String[] options = new String[] {"Neustarten", "Schlie√üen"};
         int selected = JOptionPane.showOptionDialog(
                 fenster,
                 "Unentschieden",
@@ -146,8 +146,8 @@ public class SPIEL{
 
     private void Gewinner(SYMBOLE gewinner)
     {
-        String[] options = new String[] {"Neustarten", "Schlieﬂen"};
-        String gewinner_string = gewinner.name() + " hat das Spiel gewonnen! Herzlichen Gl¸hwein!";
+        String[] options = new String[] {"Neustarten", "Schlie√üen"};
+        String gewinner_string = gewinner.name() + " hat das Spiel gewonnen! Herzlichen Gl√ºhwein!";
         int selected = JOptionPane.showOptionDialog(
                 fenster,
                 gewinner_string,
