@@ -1,7 +1,14 @@
 public class STARTER {
     
     public static void main(String[] args){
-        KONST.spiel.SpielStarten();
+        try
+        {
+            KONST.spiel.SpielStarten();
+        }
+        catch(Exception e)
+        {
+            System.exit(-1);
+        }
     }
 
 }

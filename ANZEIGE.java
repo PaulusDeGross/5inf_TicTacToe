@@ -25,13 +25,13 @@ public abstract class ANZEIGE
 
     public void Anzeigen( int x, int y )
     {
-        Zeichnen( x , y, KONST.feldgroesse, KONST.feldgroesse );
+        Zeichnen(x ,y, KONST.feldgroesse, KONST.feldgroesse );
     }
 
     public void Loeschen( int x, int y )
     {
         leinwand.setColor( Color.WHITE );
-        leinwand.fillRect( XInPixel( x ), YInPixel( y ), KONST.feldgroesse, KONST.feldgroesse );
+        leinwand.fillRect( XInPixel( x ) + KONST.feld_x_offset, YInPixel( y ) + KONST.offset + KONST.feld_y_offset, KONST.feldgroesse, KONST.feldgroesse );
     }
 
     protected abstract void Zeichnen( int x, int y, int b, int h);

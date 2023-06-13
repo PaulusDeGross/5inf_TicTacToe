@@ -11,7 +11,7 @@ public class SPIEL{
     private KREISANZEIGE kreisanzeige;
     private KREUZANZEIGE kreuzanzeige;
     private int platziert_zaehler;
-    
+
     public SPIEL()
     {
     }
@@ -31,6 +31,14 @@ public class SPIEL{
         kreuzanzeige = new KREUZANZEIGE(fenster.LeinwandGeben());
         feldliste = new FELDLISTE();
         platziert_zaehler = 0;
+        for(int x = 0; x < KONST.spielfeldgroesse; x++)
+        {
+            for(int y = 0; y < KONST.spielfeldgroesse; y++)
+            {
+                feldanzeige.Loeschen(x, y);
+                feldanzeige.Zeichnen(x * KONST.feldgroesse + KONST.feld_x_offset, KONST.feld_y_offset + KONST.offset + y * KONST.feldgroesse, KONST.feldgroesse, KONST.feldgroesse);
+            }
+        }
         fenster.repaint();
     }
 
@@ -60,7 +68,7 @@ public class SPIEL{
         if(feldliste.SymbolGeben(nr) == SYMBOLE.LEER && spieler == SYMBOLE.X)
         {
             feldliste.XSetzen(nr);
-            kreuzanzeige.Zeichnen(feldliste.XGeben(nr), feldliste.YGeben(nr), KONST.feldgroesse, KONST.feldgroesse);
+            kreuzanzeige.Zeichnen(feldliste.XGeben(nr) + KONST.feld_x_offset, feldliste.YGeben(nr) + KONST.feld_y_offset, KONST.feldgroesse, KONST.feldgroesse);
             platziert_zaehler++;
             fenster.repaint();
             SpielerWechseln();
@@ -72,10 +80,6 @@ public class SPIEL{
             platziert_zaehler++;
             fenster.repaint();
             SpielerWechseln();
-        }
-        else
-        {
-            System.out.println("Feld ist besetzt");
         }
         SYMBOLE gewinner = SpielEvaluieren();
         if(gewinner != null && platziert_zaehler < KONST.spielfeldgroesse * KONST.spielfeldgroesse || gewinner != null)
@@ -111,44 +115,59 @@ public class SPIEL{
             feldliste.SymbolGeben(2) == symbol && feldliste.SymbolGeben(4) == symbol && feldliste.SymbolGeben(6) == symbol
             )
             {
-                System.out.println(symbol + " hat gewonnen.");
                 return symbol;
             }
         }
         return null;
     }
-    
+
     private void Unentschieden()
     {
-        String[] options = new String[] {"Neustarten", "SchlieÃŸen"};
-        JOptionPane.showOptionDialog(
-        fenster,
-        "Unentschieden",
-        "5inf_TicTacToe",
-        JOptionPane.DEFAULT_OPTION,
-        JOptionPane.INFORMATION_MESSAGE,
-        null,
-        options,
-        options[0]
-        );
+        String[] options = new String[] {"Neustarten", "Schließen"};
+        int selected = JOptionPane.showOptionDialog(
+                fenster,
+                "Unentschieden",
+                "5inf_TicTacToe",
+                JOptionPane.DEFAULT_OPTION,
+                JOptionPane.INFORMATION_MESSAGE,
+                null,
+                options,
+                options[0]
+            );
+        if(selected == 0)
+        {
+            Initialisieren();
+        }
+        else
+        {
+            System.exit(-1);
+        }
     }
-    
+
     private void Gewinner(SYMBOLE gewinner)
     {
-        String[] options = new String[] {"Neustarten", "SchlieÃŸen"};
-        String gewinner_string = gewinner.name() + " hat das Spiel gewonnen! Herzlichen GlÃ¼hwein!";
-        JOptionPane.showOptionDialog(
-        fenster,
-        gewinner_string,
-        "5inf_TicTacToe",
-        JOptionPane.DEFAULT_OPTION,
-        JOptionPane.INFORMATION_MESSAGE,
-        null,
-        options,
-        options[0]
-        );
+        String[] options = new String[] {"Neustarten", "Schließen"};
+        String gewinner_string = gewinner.name() + " hat das Spiel gewonnen! Herzlichen Glühwein!";
+        int selected = JOptionPane.showOptionDialog(
+                fenster,
+                gewinner_string,
+                "5inf_TicTacToe",
+                JOptionPane.DEFAULT_OPTION,
+                JOptionPane.INFORMATION_MESSAGE,
+                null,
+                options,
+                options[0]
+            );
+        if(selected == 0)
+        {
+            Initialisieren();
+        }
+        else
+        {
+            System.exit(-1);
+        }
     }
-    
+
     public FELDANZEIGE FeldanzeigeGeben()
     {
         return feldanzeige;
