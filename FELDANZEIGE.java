@@ -6,7 +6,7 @@ public class FELDANZEIGE extends ANZEIGE
 {
     // Attribute
     private String meinName;
-    private int feldrahmenDicke = 3;
+    private int feldrahmenDicke = 3; //Muss no in KONST rein
 
     // Konstruktor
     public FELDANZEIGE (Graphics leinwand)

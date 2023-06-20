@@ -10,7 +10,7 @@ import java.awt.Color;
 
 public abstract class GRAFIKANZEIGE extends ANZEIGE
 {
-    protected int offset = 2;
+    protected int offset = 2; //Muss vllt no in KONSt nei
     
     public GRAFIKANZEIGE(Graphics leinwand) 
     {
