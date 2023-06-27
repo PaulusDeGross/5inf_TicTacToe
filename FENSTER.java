@@ -22,7 +22,7 @@ public class FENSTER extends JFrame implements WindowListener
         setSize( KONST.fensterbreite, KONST.fensterhoehe );
         setResizable( KONST.groesseveraenderbar );
         setTitle( KONST.titel );
-        icon = BildGeben("Icon.png");//noch n bisschen hässlich ig
+        icon = BildGeben("Icon2.png");//noch n bisschen hässlich ig
         setIconImage(icon);
         setVisible( KONST.sichtbar );
         puffer = createImage( getWidth(), getHeight() );
