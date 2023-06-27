@@ -4,18 +4,26 @@ import java.awt.Color;
 import java.awt.Image;
 import java.awt.event.WindowListener;
 import java.awt.event.WindowEvent;
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+
 
 public class FENSTER extends JFrame implements WindowListener
 {
     // Attribute
     private Image puffer;
+    private Image icon;
 
     // Konstruktor
     public FENSTER (MAUSLISTENER maus)
     {
         setSize( KONST.fensterbreite, KONST.fensterhoehe );
-        setResizable( KONST.groesseveränderbar );
+        setResizable( KONST.groesseveraenderbar );
         setTitle( KONST.titel );
+        icon = BildGeben("Icon.png");//noch n bisschen hässlich ig
+        setIconImage(icon);
         setVisible( KONST.sichtbar );
         puffer = createImage( getWidth(), getHeight() );
         addMouseListener(maus);
@@ -25,6 +33,20 @@ public class FENSTER extends JFrame implements WindowListener
     public Graphics LeinwandGeben()
     {
         return puffer.getGraphics();
+    }
+    
+    private BufferedImage BildGeben(String dateiname)
+    {
+        BufferedImage img = null;
+        try 
+        {
+            System.out.println(dateiname);
+            return img = ImageIO.read(new File(dateiname));
+        } catch (IOException e) 
+        {
+            System.out.println ("Grafikdatei" + dateiname + " nicht gefunden!");
+            return null;
+        }     
     }
 
     public void PufferLoeschen()
