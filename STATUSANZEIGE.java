@@ -25,8 +25,8 @@ public class STATUSANZEIGE extends ANZEIGE
     public void Anzeigen( int x, int y, String text, int fontgroesse )
     {
         leinwand.setColor( Color.BLACK );
-        leinwand.setFont( new Font( "Arial", Font.PLAIN, fontgroesse ) );
-        leinwand.drawString( text, x, y );
+        leinwand.setFont( new Font( "Impact", Font.PLAIN, fontgroesse ) );
+        leinwand.drawString( "Spieler " + text + " ist dran.", x, y );
     }
 
     public void Loeschen(int b, int h)
