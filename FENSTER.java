@@ -8,6 +8,8 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import javax.swing.JPanel;
+import java.awt.Dimension;
 
 
 public class FENSTER extends JFrame implements WindowListener
@@ -15,24 +17,38 @@ public class FENSTER extends JFrame implements WindowListener
     // Attribute
     private Image puffer;
     private Image icon;
+    private JPanel spielfeldPanel;
 
     // Konstruktor
     public FENSTER (MAUSLISTENER maus)
+    {
+        Initialisieren(maus);
+    }
+
+    // Methoden
+    private void Initialisieren(MAUSLISTENER maus)
     {
         setSize( KONST.fensterbreite, KONST.fensterhoehe );
         setResizable( KONST.groesseveraenderbar );
         setTitle( KONST.titel );
         icon = BildGeben("Icon2.png");//noch n bisschen hässlich ig
         setIconImage(icon);
-        setVisible( KONST.sichtbar );
+        spielfeldPanel = new javax.swing.JPanel();
+        add(spielfeldPanel);
         puffer = createImage( getWidth(), getHeight() );
+        
+        spielfeldPanel.setBackground(Color.WHITE);
+        setContentPane(spielfeldPanel);
+        setPreferredSize(new Dimension(KONST.fensterbreite, KONST.fensterbreite));
+        
+        setVisible( KONST.sichtbar );
         addMouseListener(maus);
     }
-
-    // Methoden
+    
     public Graphics LeinwandGeben()
     {
-        return puffer.getGraphics();
+        //return puffer.getGraphics();
+        return spielfeldPanel.getGraphics();
     }
     
     private BufferedImage BildGeben(String dateiname)
