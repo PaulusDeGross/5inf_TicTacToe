@@ -10,6 +10,11 @@ import java.io.File;
 import java.io.IOException;
 import javax.swing.JPanel;
 import java.awt.Dimension;
+import javax.swing.JMenuBar;
+import javax.swing.JMenu;
+import javax.swing.JMenuItem;
+import java.awt.event.*;
+import javax.swing.KeyStroke;
 
 
 public class FENSTER extends JFrame implements WindowListener
@@ -18,6 +23,9 @@ public class FENSTER extends JFrame implements WindowListener
     private Image puffer;
     private Image icon;
     private JPanel spielfeldPanel;
+    private JMenuBar menuBar;
+    private JMenu menu;
+    private JMenuItem item;
 
     // Konstruktor
     public FENSTER (MAUSLISTENER maus)
@@ -36,21 +44,30 @@ public class FENSTER extends JFrame implements WindowListener
         spielfeldPanel = new javax.swing.JPanel();
         add(spielfeldPanel);
         puffer = createImage( getWidth(), getHeight() );
-        
+
+        menuBar = new JMenuBar();
+        menu = new JMenu("Feldgroesse");
+        menuBar.add(menu);
+        setJMenuBar(menuBar);
+        item = new JMenuItem("A text-only menu item",KeyEvent.VK_T);
+        item.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_1, ActionEvent.ALT_MASK));
+        item.getAccessibleContext().setAccessibleDescription("This doesn't really do anything");
+        menu.add(item);
+
         spielfeldPanel.setBackground(Color.WHITE);
         setContentPane(spielfeldPanel);
-        setPreferredSize(new Dimension(KONST.fensterbreite, KONST.fensterbreite));
-        
+        setPreferredSize(new Dimension(KONST.fensterbreite, KONST.fensterhoehe));
+
         setVisible( KONST.sichtbar );
         addMouseListener(maus);
     }
-    
+
     public Graphics LeinwandGeben()
     {
         //return puffer.getGraphics();
         return spielfeldPanel.getGraphics();
     }
-    
+
     private BufferedImage BildGeben(String dateiname)
     {
         BufferedImage img = null;
@@ -89,8 +106,8 @@ public class FENSTER extends JFrame implements WindowListener
             int _x = 0;
             while(_x < KONST.spielfeldgroesse)
             {
-              System.out.println(KONST.eckpunkteFelder[_x][_y][0] + " " + KONST.eckpunkteFelder[_x][_y][1]);
-              _x++;  
+                System.out.println(KONST.eckpunkteFelder[_x][_y][0] + " " + KONST.eckpunkteFelder[_x][_y][1]);
+                _x++;  
             }
             _y++;
         }
@@ -112,7 +129,7 @@ public class FENSTER extends JFrame implements WindowListener
     @Override
     public void windowDeiconified( WindowEvent event )
     {
-       //nichts tun
+        //nichts tun
     }
 
     @Override
