@@ -10,8 +10,11 @@ public class SPIEL{
     private FELDANZEIGE feldanzeige;
     private KREISANZEIGE kreisanzeige;
     private KREUZANZEIGE kreuzanzeige;
+    private STATUSANZEIGE statusanzeige;
     private int platziert_zaehler;
-
+    
+    private int[][][] gewinnkombinationen;
+    
     public SPIEL()
     {
     }
@@ -29,6 +32,10 @@ public class SPIEL{
         feldanzeige = new FELDANZEIGE(fenster.LeinwandGeben());
         kreisanzeige = new KREISANZEIGE(fenster.LeinwandGeben());
         kreuzanzeige = new KREUZANZEIGE(fenster.LeinwandGeben());
+        statusanzeige = new STATUSANZEIGE(fenster.LeinwandGeben());
+        statusanzeige.Loeschen(KONST.fensterbreite, KONST.offset);
+        gewinnkombinationen = gewinnKombinationenGenerieren();
+        statusanzeige.Anzeigen(30, KONST.actionbar_offset + 30, "Spieler: " + spieler.name(), 30);
         feldliste = new FELDLISTE();
         platziert_zaehler = 0;
         for(int x = 0; x < KONST.spielfeldgroesse; x++)
@@ -39,13 +46,16 @@ public class SPIEL{
                 feldanzeige.Zeichnen(x * KONST.feldgroesse + KONST.feld_x_offset, KONST.feld_y_offset + KONST.offset + y * KONST.feldgroesse, KONST.feldgroesse, KONST.feldgroesse);
             }
         }
+
+        gewinnKombinationenGenerieren();
+
         fenster.repaint();
     }
 
     public void Klick(int x, int y)
     {
         int feld = feldliste.Suchen(x, y);
-        System.out.println("Feld: " + feld + "| Spieler: " + spieler);
+        // System.out.println("Feld: " + feld + "| Spieler: " + spieler);
         if(feld >= 0)
         {
             FeldSetzen(feld);
@@ -61,6 +71,8 @@ public class SPIEL{
         } else {
             spieler = SYMBOLE.O;
         }
+        statusanzeige.Loeschen(KONST.fensterbreite, KONST.offset);
+        statusanzeige.Anzeigen(30, KONST.actionbar_offset + 30, "Spieler: " + spieler.name(), 30); 
     }
 
     private void FeldSetzen(int nr)
@@ -90,40 +102,83 @@ public class SPIEL{
         {
             Unentschieden();
         }
-        System.out.println(platziert_zaehler);
+        // System.out.println(platziert_zaehler);
     }
 
     private SYMBOLE SpielEvaluieren()
-    {
-        for(int i = 0; i <= 2; i++)
-        {
-            SYMBOLE symbol = SYMBOLE.values()[i];
-            if(symbol == SYMBOLE.LEER)
-            {
-                continue;
+    {   
+        SYMBOLE[][] symbolliste = feldlisteZuSymbolliste();
+        
+        for(int i = 0; i < gewinnkombinationen.length; i++){
+            SYMBOLE[] reihe = new SYMBOLE[gewinnkombinationen[i].length];
+            for(int j = 0; j < gewinnkombinationen[i].length; j++){
+                int feld_y = gewinnkombinationen[i][j][0];
+                int feld_x = gewinnkombinationen[i][j][1];
+                
+                reihe[j] = symbolliste[feld_y][feld_x];
             }
-            if(
-            feldliste.SymbolGeben(0) == symbol && feldliste.SymbolGeben(1) == symbol && feldliste.SymbolGeben(2) == symbol ||
-            feldliste.SymbolGeben(3) == symbol && feldliste.SymbolGeben(4) == symbol && feldliste.SymbolGeben(5) == symbol ||
-            feldliste.SymbolGeben(6) == symbol && feldliste.SymbolGeben(7) == symbol && feldliste.SymbolGeben(8) == symbol ||
-
-            feldliste.SymbolGeben(0) == symbol && feldliste.SymbolGeben(3) == symbol && feldliste.SymbolGeben(6) == symbol ||
-            feldliste.SymbolGeben(1) == symbol && feldliste.SymbolGeben(4) == symbol && feldliste.SymbolGeben(7) == symbol ||
-            feldliste.SymbolGeben(2) == symbol && feldliste.SymbolGeben(5) == symbol && feldliste.SymbolGeben(8) == symbol ||
-
-            feldliste.SymbolGeben(0) == symbol && feldliste.SymbolGeben(4) == symbol && feldliste.SymbolGeben(8) == symbol ||
-            feldliste.SymbolGeben(2) == symbol && feldliste.SymbolGeben(4) == symbol && feldliste.SymbolGeben(6) == symbol
-            )
-            {
-                return symbol;
+            for(int x = 0; x < reihe.length; x++){
+                if(IstAllesGleich(reihe)){
+                    if(reihe[0] != SYMBOLE.LEER){
+                        return reihe[0];
+                    }
+                }
             }
         }
+        
+        
         return null;
+    }
+
+    private int[][][] gewinnKombinationenGenerieren()
+    {
+        int anzahl_gewinnkombinationen = 2 * KONST.spielfeldgroesse + 2;
+        System.out.println(anzahl_gewinnkombinationen);
+        int[][][] gewinnkombinationen = new int[anzahl_gewinnkombinationen][KONST.spielfeldgroesse][2];
+        for(int i = 0; i < anzahl_gewinnkombinationen; i++){
+            int coord_y = i % KONST.spielfeldgroesse;
+            if(i < 2 * KONST.spielfeldgroesse){
+                for(int j = 0; j < KONST.spielfeldgroesse; j++){
+                    if(i < KONST.spielfeldgroesse){
+                        gewinnkombinationen[i][j][0] = j;
+                        gewinnkombinationen[i][j][1] = coord_y;
+                    }else{
+                        gewinnkombinationen[i][j][0] = coord_y;
+                        gewinnkombinationen[i][j][1] = j;
+                    }
+
+                    if(coord_y == j){
+                        gewinnkombinationen[anzahl_gewinnkombinationen - 1][j][0] = coord_y;
+                        gewinnkombinationen[anzahl_gewinnkombinationen - 1][j][1] = j;
+
+                        gewinnkombinationen[anzahl_gewinnkombinationen - 2][j][0] = j;
+                        gewinnkombinationen[anzahl_gewinnkombinationen - 2][KONST.spielfeldgroesse - j - 1][1] = coord_y;
+                    }
+                }
+            }
+        }
+
+        return gewinnkombinationen;
+    }
+
+    private SYMBOLE[][] feldlisteZuSymbolliste()
+    {
+        int feld_laenge = feldliste.LaengeGeben();
+        SYMBOLE[][] zustaende = new SYMBOLE[KONST.spielfeldgroesse][KONST.spielfeldgroesse];
+        for(int i = 0; i < feld_laenge; i++)
+        {   
+            int reihe = i / KONST.spielfeldgroesse;
+            int spalte = i % KONST.spielfeldgroesse;
+
+            zustaende[reihe][spalte] = feldliste.SymbolGeben(i);
+        }
+
+        return zustaende;
     }
 
     private void Unentschieden()
     {
-        String[] options = new String[] {"Neustarten", "SchlieÃŸen"};
+        String[] options = new String[] {"Neustarten", "Schließen"};
         int selected = JOptionPane.showOptionDialog(
                 fenster,
                 "Unentschieden",
@@ -146,8 +201,8 @@ public class SPIEL{
 
     private void Gewinner(SYMBOLE gewinner)
     {
-        String[] options = new String[] {"Neustarten", "SchlieÃŸen"};
-        String gewinner_string = gewinner.name() + " hat das Spiel gewonnen! Herzlichen GlÃ¼hwein!";
+        String[] options = new String[] {"Neustarten", "Schließen"};
+        String gewinner_string = gewinner.name() + " hat das Spiel gewonnen! Herzlichen Glühwein!";
         int selected = JOptionPane.showOptionDialog(
                 fenster,
                 gewinner_string,
@@ -171,6 +226,17 @@ public class SPIEL{
     public FELDANZEIGE FeldanzeigeGeben()
     {
         return feldanzeige;
+    }
+
+    private boolean IstAllesGleich(SYMBOLE[] symbolliste)
+    {
+        for(int i = 0; i < symbolliste.length; i++){
+            if(symbolliste[0] != symbolliste[i])
+            {
+                return false;
+            }
+        }
+        return true;
     }
 
 }

@@ -9,16 +9,16 @@ public class KONST {
     }
 
     public static final String titel = "TIC TAC TOE";
-    private static final int actionbar_offset = 28;
+    public static final int actionbar_offset = 28;
     public static final int feld_y_offset = 0;
     public static final int feld_x_offset = 0;
     public static final int offset = 100 + actionbar_offset;
     public static final int fensterbreite = 600;
     public static final int fensterhoehe = fensterbreite + offset;
-    public static final boolean groesseveränderbar = true;
+    public static final boolean groesseveraenderbar = true;
     public static final boolean sichtbar = true;
     public static final Color hintergrundfarbe = Color.WHITE;
-    public static final int spielfeldgroesse = 3;
+    public static final int spielfeldgroesse = 5;
     public static final int startX = 1;
     public static final int startY = 1;
     public static final int feldgroesse = ((fensterhoehe - offset) / spielfeldgroesse);
