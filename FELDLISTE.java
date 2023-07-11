@@ -19,7 +19,7 @@ public class FELDLISTE {
             // schauen ob trefferkoordinaten bei x und y größer sind als eckpunkt und bei x und y kleiner als eckpunkt x + feldgroesse & y + feldgroesse
             while(i < KONST.spielfeldgroesse)
             {
-                int nr = i + k * 3;
+                int nr = i + k * KONST.spielfeldgroesse;
                 felder[nr] = new FELD (KONST.eckpunkteFelder[i][k][0], KONST.eckpunkteFelder[i][k][1], KONST.spiel.FeldanzeigeGeben());
                 System.out.println("Feld: " + nr + "\n" + "Koordinaten: " + KONST.eckpunkteFelder[i][k][0] + ", " + KONST.eckpunkteFelder[i][k][1]);
                 felder[nr].Anzeigen();
@@ -35,7 +35,8 @@ public class FELDLISTE {
         while( i < KONST.spielfeldgroesse * KONST.spielfeldgroesse)
         {
             if( felder[ i ].IstGetroffen( x, y ) )
-            {
+            {   
+                System.out.println(i);
                 return i;
             }
             i = i + 1;
@@ -60,7 +61,7 @@ public class FELDLISTE {
     }
     
     public SYMBOLE SymbolGeben(int _nr)
-    {
+    {   
         return felder[_nr].SymbolGeben();
     }
     
@@ -72,5 +73,10 @@ public class FELDLISTE {
     public void OSetzen( int _nr)
     {
         felder[_nr].OSetzen();
+    }
+    
+    public int LaengeGeben()
+    {
+        return felder.length;
     }
 }
