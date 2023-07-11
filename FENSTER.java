@@ -45,6 +45,18 @@ public class FENSTER extends JFrame implements WindowListener
         add(spielfeldPanel);
         puffer = createImage( getWidth(), getHeight() );
 
+        MenuInit();
+
+        spielfeldPanel.setBackground(Color.WHITE);
+        setContentPane(spielfeldPanel);
+        setPreferredSize(new Dimension(KONST.fensterbreite, KONST.fensterhoehe));
+
+        setVisible( KONST.sichtbar );
+        addMouseListener(maus);
+    }
+    
+    private void MenuInit()
+    {
         menuBar = new JMenuBar();
         menu = new JMenu("Feldgroesse");
         menuBar.add(menu);
@@ -53,13 +65,6 @@ public class FENSTER extends JFrame implements WindowListener
         item.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_1, ActionEvent.ALT_MASK));
         item.getAccessibleContext().setAccessibleDescription("This doesn't really do anything");
         menu.add(item);
-
-        spielfeldPanel.setBackground(Color.WHITE);
-        setContentPane(spielfeldPanel);
-        setPreferredSize(new Dimension(KONST.fensterbreite, KONST.fensterhoehe));
-
-        setVisible( KONST.sichtbar );
-        addMouseListener(maus);
     }
 
     public Graphics LeinwandGeben()
