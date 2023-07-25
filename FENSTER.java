@@ -20,12 +20,20 @@ import javax.swing.KeyStroke;
 public class FENSTER extends JFrame implements WindowListener
 {
     // Attribute
-    private Image puffer;
     private Image icon;
-    private JPanel spielfeldPanel;
+    private PANEL spielfeldPanel;
     private JMenuBar menuBar;
     private JMenu menu;
-    private JMenuItem item;
+    private JMenuItem item3;
+    private JMenuItem item4;
+    private JMenuItem item5;
+    private JMenuItem item6;
+    private JMenuItem item7;
+    private JMenuItem item8;
+    private JMenuItem item9;
+    private JMenuItem item10;
+    private JMenuItem itemD;
+    private JMenuItem itemE;
 
     // Konstruktor
     public FENSTER (MAUSLISTENER maus)
@@ -41,10 +49,9 @@ public class FENSTER extends JFrame implements WindowListener
         setTitle( KONST.titel );
         icon = BildGeben("Icon2.png");//noch n bisschen hässlich ig
         setIconImage(icon);
-        spielfeldPanel = new javax.swing.JPanel();
+        spielfeldPanel = new PANEL();
         add(spielfeldPanel);
-        puffer = createImage( getWidth(), getHeight() );
-
+        
         MenuInit();
 
         spielfeldPanel.setBackground(Color.WHITE);
@@ -52,25 +59,29 @@ public class FENSTER extends JFrame implements WindowListener
         setPreferredSize(new Dimension(KONST.fensterbreite, KONST.fensterhoehe));
 
         setVisible( KONST.sichtbar );
+        
+        spielfeldPanel.PanelInit();
+        
         addMouseListener(maus);
     }
     
     private void MenuInit()
     {
         menuBar = new JMenuBar();
-        menu = new JMenu("Feldgroesse");
-        menuBar.add(menu);
+        
+        //Feldgroessenmenü
+        FeldgroesseMenuInit();
+        
+        //Sprachmenü
+        SprachMenuInit();
+        
         setJMenuBar(menuBar);
-        item = new JMenuItem("A text-only menu item",KeyEvent.VK_T);
-        item.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_1, ActionEvent.ALT_MASK));
-        item.getAccessibleContext().setAccessibleDescription("This doesn't really do anything");
-        menu.add(item);
     }
 
     public Graphics LeinwandGeben()
     {
         //return puffer.getGraphics();
-        return spielfeldPanel.getGraphics();
+        return spielfeldPanel.LeinwandGeben();
     }
 
     private BufferedImage BildGeben(String dateiname)
@@ -89,18 +100,17 @@ public class FENSTER extends JFrame implements WindowListener
 
     public void PufferLoeschen()
     {
-        Graphics g = LeinwandGeben();
+        /*Graphics g = LeinwandGeben();
         g.setColor( KONST.hintergrundfarbe );
-        g.fillRect( 0, 0, getWidth(), getHeight() );
+        g.fillRect( 0, 0, getWidth(), getHeight() );*/
     }
 
     @Override
     public void paint( Graphics g )
     {
-        if( puffer != null )
-        {
-            g.drawImage( puffer, 0, 0, getWidth(), getHeight(), null );
-        }
+        super.paint(g);
+                
+        spielfeldPanel.paint(g);
     }
     ///*
     public void eckpunkteTesten()
@@ -118,6 +128,69 @@ public class FENSTER extends JFrame implements WindowListener
         }
     }
     //*/
+    
+    public void FeldgroesseMenuInit()
+    {
+        menu = new JMenu("Feldgroesse");
+        menuBar.add(menu);
+        
+        item3 = new JMenuItem("3x3",KeyEvent.VK_T);
+        item3.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_3, ActionEvent.ALT_MASK));
+        item3.getAccessibleContext().setAccessibleDescription("This doesn't really do anything");
+        menu.add(item3);
+        
+        item4 = new JMenuItem("4x4",KeyEvent.VK_T);
+        item4.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_4, ActionEvent.ALT_MASK));
+        item4.getAccessibleContext().setAccessibleDescription("This doesn't really do anything");
+        menu.add(item4);
+        
+        item5 = new JMenuItem("5x5",KeyEvent.VK_T);
+        item5.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_5, ActionEvent.ALT_MASK));
+        item5.getAccessibleContext().setAccessibleDescription("This doesn't really do anything");
+        menu.add(item5);
+        
+        item6 = new JMenuItem("6x6",KeyEvent.VK_T);
+        item6.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_6, ActionEvent.ALT_MASK));
+        item6.getAccessibleContext().setAccessibleDescription("This doesn't really do anything");
+        menu.add(item6);
+        
+        item7 = new JMenuItem("7x7",KeyEvent.VK_T);
+        item7.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_7, ActionEvent.ALT_MASK));
+        item7.getAccessibleContext().setAccessibleDescription("This doesn't really do anything");
+        menu.add(item7);
+        
+        item8 = new JMenuItem("8x8",KeyEvent.VK_T);
+        item8.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_8, ActionEvent.ALT_MASK));
+        item8.getAccessibleContext().setAccessibleDescription("This doesn't really do anything");
+        menu.add(item8);
+        
+        item9 = new JMenuItem("9x9",KeyEvent.VK_T);
+        item9.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_9, ActionEvent.ALT_MASK));
+        item9.getAccessibleContext().setAccessibleDescription("This doesn't really do anything");
+        menu.add(item9);
+        
+        item10 = new JMenuItem("10x10",KeyEvent.VK_T);
+        item10.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_0, ActionEvent.ALT_MASK));
+        item10.getAccessibleContext().setAccessibleDescription("This doesn't really do anything");
+        menu.add(item10);
+    }
+    
+    public void SprachMenuInit()
+    {
+        menu = new JMenu("Sprache");
+        menuBar.add(menu);
+        
+        itemD = new JMenuItem("Deutsch",KeyEvent.VK_T);
+        itemD.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_1, ActionEvent.ALT_MASK));
+        itemD.getAccessibleContext().setAccessibleDescription("This doesn't really do anything");
+        menu.add(itemD);
+        
+        itemE = new JMenuItem("English",KeyEvent.VK_T);
+        itemE.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_2, ActionEvent.ALT_MASK));
+        itemE.getAccessibleContext().setAccessibleDescription("This doesn't really do anything");
+        menu.add(itemE);
+    }
+    
     // WindowListener
     @Override
     public void windowDeactivated( WindowEvent event )
